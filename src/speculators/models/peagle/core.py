@@ -3,7 +3,6 @@
 from typing import ClassVar
 
 import torch
-from torch.nn.attention.flex_attention import create_block_mask
 from transformers import PretrainedConfig
 
 from speculators.config import SpeculatorsConfig, VerifierConfig
@@ -137,7 +136,7 @@ class PEagleDraftModel(Eagle3DraftModel):
             total_seq_len=seq_length,
         )
 
-        attention_mask = create_block_mask(  # type: ignore[assignment]
+        attention_mask = self._create_mask_fn(
             mask_mod,
             B=None,
             H=None,
